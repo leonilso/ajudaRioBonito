@@ -1,0 +1,20 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Ambiente
+.env
+
+# Build
+client/node_modules/
+client/build/
+server/node_modules/
+server/dist/
+
+# Docker
+*.pid
+*.log
+
+# Sistema
+.DS_Store
