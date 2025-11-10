@@ -1,4 +1,4 @@
-import db from "../db.js";
+import db from "../services/db.js";
 
 export const inserirUsuario = async (dados) => {
   const query = `

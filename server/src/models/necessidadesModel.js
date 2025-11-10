@@ -1,4 +1,4 @@
-import db from "../db.js";
+import db from "../services/db.js";
 
 export const inserirNecessidades = async (usuario_id, itens) => {
   const query = `

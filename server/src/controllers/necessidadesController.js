@@ -1,4 +1,4 @@
-import db from "../db.js";
+import db from "../services/db.js";
 import { inserirNecessidades, listarNecessidadesPorUsuario, atualizarNecessidade, excluirNecessidade } from "../models/necessidadesModel.js";
 
 export const cadastrarNecessidades = async (req, res) => {

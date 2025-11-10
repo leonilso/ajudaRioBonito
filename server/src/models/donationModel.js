@@ -1,4 +1,4 @@
-import db from "../config/db.js";
+import db from "../services/db.js";
 
 export async function createDonation({ localizacao, nomeProduto, descricao, tipo, quantidade, perecivel }) {
   // 1️⃣ Cria o centro de distribuição (ou use um existente)
