@@ -51,6 +51,7 @@ export const apiService = {
   },
 
   registerVolunteer: (formData) => {
+    console.log(formData)
     return apiFetch("voluntarios/cadastro", {
       method: "POST",
       body: JSON.stringify(formData),
