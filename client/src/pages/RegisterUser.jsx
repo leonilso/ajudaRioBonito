@@ -7,10 +7,9 @@ const initialState = {
   nome: '',
   cpf: '',
   telefone: '',
-  latitude: '',
-  longitude: '',
   desabrigado: false,
-  problemaSaude: ''
+  problemaSaude: '',
+  detalhamentoSaude: ''
 };
 
 export default function RegisterUser() {
@@ -51,9 +50,8 @@ export default function RegisterUser() {
         <input required name="nome" placeholder="Nome" value={form.nome} onChange={handleChange} className="w-full p-2 border rounded" />
         <input required name="cpf" placeholder="CPF" value={form.cpf} onChange={handleChange} className="w-full p-2 border rounded" />
         <input name="telefone" placeholder="Telefone" value={form.telefone} onChange={handleChange} className="w-full p-2 border rounded" />
-        <input name="latitude" placeholder="Latitude" value={form.latitude} onChange={handleChange} className="w-full p-2 border rounded" />
-        <input name="longitude" placeholder="Longitude" value={form.longitude} onChange={handleChange} className="w-full p-2 border rounded" />
         <input name="problemaSaude" placeholder="Problema de saúde" value={form.problemaSaude} onChange={handleChange} className="w-full p-2 border rounded" />
+        <input name="detalhamentoSaude" placeholder="Detalhe seu probleama" value={form.detalhamentoSaude} onChange={handleChange} className="w-full p-2 border rounded" />
         <label className="flex items-center gap-2">
           <input type="checkbox" name="desabrigado" checked={form.desabrigado} onChange={handleChange} />
           Desabrigado

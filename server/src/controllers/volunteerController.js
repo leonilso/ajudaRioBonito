@@ -3,7 +3,6 @@ import { createVolunteer, getVolunteerByCpf, listarVoluntarios } from "../models
 export async function registerVolunteer(req, res) {
   try {
     const { cpf, nome, telefone, atuacao, municipioOrigem, senha } = req.body;
-
     if (!cpf || !nome || !telefone || !atuacao || !municipioOrigem || !senha) {
       return res.status(400).json({ error: "Todos os campos são obrigatórios" });
     }
@@ -28,7 +27,7 @@ export async function loginVolunteer(req, res) {
     if (!volunteer) {
       return res.status(404).json({ error: "Voluntário não encontrado" });
     }
-
+    console.log(volunteer.senha, senha)
     if (volunteer.senha !== senha) {
       return res.status(401).json({ error: "Senha incorreta" });
     }

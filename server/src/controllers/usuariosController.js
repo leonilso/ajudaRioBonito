@@ -10,9 +10,11 @@ export const cadastrarUsuario = async (req, res) => {
       desabrigado,
       problemaSaude,
       detalhamentoSaude,
+      lat,
+      lng
     } = req.body;
 
-    const localizacao = JSON.parse(req.body.localizacao);
+    const localizacao = {lat: lat, lng: lng}
 
     await inserirUsuario({
       nome,

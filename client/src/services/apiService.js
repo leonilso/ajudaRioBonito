@@ -1,4 +1,4 @@
-const BASE_URL = "/"; // Ou seu prefixo de API, ex: "/api"
+const BASE_URL = "/api/"; // Ou seu prefixo de API, ex: "/api"
 
 // Função helper para lidar com o fetch
 async function apiFetch(endpoint, options = {}) {
@@ -51,7 +51,6 @@ export const apiService = {
   },
 
   registerVolunteer: (formData) => {
-    console.log(formData)
     return apiFetch("voluntarios/cadastro", {
       method: "POST",
       body: JSON.stringify(formData),

@@ -17,7 +17,7 @@ export const inserirUsuario = async (dados) => {
     dados.localizacao.lat,
     dados.localizacao.lng,
   ];
-  await db.promise().query(query, values);
+  await db.query(query, values);
 };
 
 export const listarUsuarios = async () => {
