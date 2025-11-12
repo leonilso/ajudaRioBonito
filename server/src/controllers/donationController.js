@@ -1,4 +1,4 @@
-import { createDonation, baixaDoacao, buscarProdutos, buscarTodosProdutos, contarProdutos   } from "../models/donationModel.js";
+import { createDonation, baixaDoacao, buscarProdutos, buscarTodosProdutos, contarProdutos, buscarProdutosSolicitados, buscarTodosProdutosSolicitados  } from "../models/donationModel.js";
 
 export async function registerDonation(req, res) {
   try {
@@ -69,6 +69,34 @@ export async function buscarProdutosController(req, res) {
       resultados = await buscarProdutos(q, limit, offset);
     } else {
       resultados = await buscarTodosProdutos(limit, offset);
+    }
+
+    res.status(200).json({
+      total,
+      totalPages,
+      currentPage: Number(page),
+      limit: Number(limit),
+      resultados
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Erro ao buscar produtos" });
+  }
+}
+
+export async function buscarProdutosSolicitadosController(req, res) {
+  try {
+    const { q, page = 1, limit = 10 } = req.query;
+    const offset = (page - 1) * limit;
+
+    const total = await contarProdutos(q && q.trim() !== "" ? q : null);
+    const totalPages = Math.ceil(total / limit);
+
+    let resultados;
+    if (q && q.trim() !== "") {
+      resultados = await buscarProdutosSolicitados(q, limit, offset);
+    } else {
+      resultados = await buscarTodosProdutosSolicitados(limit, offset);
     }
 
     res.status(200).json({

@@ -108,5 +108,8 @@ export const apiService = {
   },
   getCentrosDistribuicao: ()=>{
     return apiFetch('centros/');
+  },
+  getProdutosSolicitados: (params)=>{
+    return apiFetch(`doacoes/solicitadas?${params.toString()}`);
   }
 };

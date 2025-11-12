@@ -112,3 +112,43 @@ export async function buscarTodosProdutos(limit, offset) {
   );
   return rows;
 }
+
+export async function buscarProdutosSolicitados(term, limit, offset) {
+  const likeTerm = `%${term}%`;
+  const [rows] = await db.execute(
+    `SELECT 
+       p.id AS id_produto,
+       p.nomeProduto,
+       p.tipo,
+       p.perecivel,
+       n.quantidade,
+       u.nome AS nome_usuario,
+       u.id AS usuario_id
+     FROM necessidades n
+     JOIN produtos p ON n.produto_id = p.id
+     JOIN usuarios u ON n.usuario_id = u.id
+     WHERE p.nomeProduto LIKE ? OR p.tipo LIKE ?
+     LIMIT ? OFFSET ?`,
+    [likeTerm, likeTerm, Number(limit), Number(offset)]
+  );
+  return rows;
+}
+
+export async function buscarTodosProdutosSolicitados(limit, offset) {
+  const [rows] = await db.execute(
+    `SELECT 
+       p.id AS id_produto,
+       p.nomeProduto,
+       p.tipo,
+       p.perecivel,
+       n.quantidade,
+       u.nome AS nome_usuario,
+       u.id AS usuario_id
+     FROM necessidades n
+     JOIN produtos p ON n.produto_id = p.id
+     JOIN usuarios u ON n.usuario_id = u.id
+     LIMIT ? OFFSET ?`,
+    [Number(limit), Number(offset)]
+  );
+  return rows;
+}

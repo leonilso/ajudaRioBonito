@@ -120,8 +120,8 @@ END;
 DELIMITER ;
 
 INSERT INTO centro_distribuicao (nome, latitude, longitude) VALUES ("Laranjinha", 45, 55);
-INSERT INTO produtos (nomeProduto,descricao,tipo,perecivel) VALUES ("Banana", "Isto é uma banana", "alimento", TRUE);
-INSERT INTO  doacoes (produto_id, centro_id, quantidade) VALUES (1, 1, 4);
+-- INSERT INTO produtos (nomeProduto,descricao,tipo,perecivel) VALUES ("Banana", "Isto é uma banana", "alimento", TRUE);
+-- INSERT INTO  doacoes (produto_id, centro_id, quantidade) VALUES (1, 1, 4);
 
 select * from voluntarios;
 

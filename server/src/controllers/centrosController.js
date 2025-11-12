@@ -15,7 +15,6 @@ export const cadastrarCentro = async (req, res) => {
 export const consultarCentros = async (req, res) => {
   try {
     const centros = await listarCentros();
-    console.log(centros)
     res.status(200).json(centros);
   } catch (error) {
     console.error(error);

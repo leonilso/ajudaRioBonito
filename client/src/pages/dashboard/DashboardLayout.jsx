@@ -19,10 +19,11 @@ export default function DashboardLayout() {
         <nav className="flex flex-col gap-2">
           {/* NavLink sabe qual rota está ativa e aplica a classe */}
           <NavLink to="/dashboard" end className={({isActive}) => `${linkClasses} ${isActive ? activeClassName : ''}`}>Início</NavLink>
-          <NavLink to="/dashboard/mapa" className={({isActive}) => `${linkClasses} ${isActive ? activeClassName : ''}`}>Mapa</NavLink>
-          <NavLink to="/dashboard/produtos" className={({isActive}) => `${linkClasses} ${isActive ? activeClassName : ''}`}>Produtos</NavLink>
-          <NavLink to="/dashboard/pessoas" className={({isActive}) => `${linkClasses} ${isActive ? activeClassName : ''}`}>Pessoas</NavLink>
           <NavLink to="/dashboard/centros" className={({isActive}) => `${linkClasses} ${isActive ? activeClassName : ''}`}>Centros</NavLink>
+          <NavLink to="/dashboard/pessoas" className={({isActive}) => `${linkClasses} ${isActive ? activeClassName : ''}`}>Pessoas</NavLink>
+          <NavLink to="/dashboard/mapa" className={({isActive}) => `${linkClasses} ${isActive ? activeClassName : ''}`}>Mapa</NavLink>
+          <NavLink to="/dashboard/produtos" className={({isActive}) => `${linkClasses} ${isActive ? activeClassName : ''}`}>Produtos em estoque</NavLink>
+          <NavLink to="/dashboard/solicitados" className={({isActive}) => `${linkClasses} ${isActive ? activeClassName : ''}`}>Produtos Solicitados</NavLink>
         </nav>
 
         <div className="mt-6">
