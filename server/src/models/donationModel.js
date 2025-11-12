@@ -1,27 +1,40 @@
 import db from "../services/db.js";
 
-export async function createDonation({ localizacao, nomeProduto, descricao, tipo, quantidade, perecivel }) {
-  // 1️⃣ Cria o centro de distribuição (ou use um existente)
-  const [centro] = await db.execute(
-    "INSERT INTO centro_distribuicao (localizacao) VALUES (?)",
-    [JSON.stringify(localizacao)]
-  );
-  const centroId = centro.insertId;
+export async function createDonation({ centroId, nomeProduto, descricao, tipo, quantidade, perecivel }) {
+  // // 1️⃣ Normaliza o nome para busca
+  const nomeNormalizado = nomeProduto.trim().toLowerCase();
 
-  // 2️⃣ Cria o produto
-  const [produto] = await db.execute(
-    "INSERT INTO produtos (nome_produto, descricao, tipo, perecivel) VALUES (?, ?, ?, ?)",
-    [nomeProduto, descricao, tipo, perecivel]
-  );
-  const produtoId = produto.insertId;
-
-  // 3️⃣ Cria o registro de doação
-  const [doacao] = await db.execute(
-    "INSERT INTO doacoes (produto_id, centro_id, quantidade) VALUES (?, ?, ?)",
-    [produtoId, centroId, quantidade]
+  // // 2️⃣ Verifica se já existe um produto com o mesmo nome (ignorando maiúsculas/minúsculas)
+  const [existing] = await db.execute(
+    "SELECT id FROM produtos WHERE LOWER(TRIM(nomeProduto)) = ?",
+    [nomeNormalizado]
   );
 
-  return doacao.insertId;
+  let produtoId;
+
+  if (existing.length > 0) {
+      produtoId = existing[0].id
+      // 5️⃣ Cria uma nova doação para esse centro
+      const [doacao] = await db.execute(
+        "INSERT INTO doacoes (produto_id, centro_id, quantidade) VALUES (?, ?, ?)",
+        [produtoId, centroId, quantidade]
+      );
+  } else {
+    // 6️⃣ Produto novo → cria e registra a doação
+    const [produto] = await db.execute(
+      "INSERT INTO produtos (nomeProduto, descricao, tipo, perecivel) VALUES (?, ?, ?, ?)",
+      [nomeProduto.trim(), descricao, tipo, perecivel]
+    );
+    produtoId = produto.insertId;
+
+    [doacao] = await db.execute(
+      "INSERT INTO doacoes (produto_id, centro_id, quantidade) VALUES (?, ?, ?)",
+      [produtoId, centroId, quantidade]
+    );
+
+    
+  }
+  return { id: produtoId};
 }
 
 export async function baixaDoacao(id, quantidadeBaixa) {
@@ -53,7 +66,7 @@ export async function contarProdutos(term = null) {
   const params = [];
 
   if (term) {
-    query += " WHERE p.nome_produto LIKE ? OR p.tipo LIKE ?";
+    query += " WHERE p.nomeProduto LIKE ? OR p.tipo LIKE ?";
     const likeTerm = `%${term}%`;
     params.push(likeTerm, likeTerm);
   }
@@ -66,17 +79,16 @@ export async function buscarProdutos(term, limit, offset) {
   const likeTerm = `%${term}%`;
   const [rows] = await db.execute(
     `SELECT 
-       d.id AS id_doacao,
        p.id AS id_produto,
-       p.nome_produto,
+       p.nomeProduto,
        p.tipo,
        p.perecivel,
-       d.quantidade,
-       c.localizacao
-     FROM doacoes d
-     JOIN produtos p ON d.produto_id = p.id
-     JOIN centro_distribuicao c ON d.centro_id = c.id
-     WHERE p.nome_produto LIKE ? OR p.tipo LIKE ?
+       e.quantidade,
+       c.nome AS nome_centro
+     FROM estoque e
+     JOIN produtos p ON e.produto_id = p.id
+     JOIN centro_distribuicao c ON e.centro_id = c.id
+     WHERE p.nomeProduto LIKE ? OR p.tipo LIKE ?
      LIMIT ? OFFSET ?`,
     [likeTerm, likeTerm, Number(limit), Number(offset)]
   );
@@ -86,16 +98,15 @@ export async function buscarProdutos(term, limit, offset) {
 export async function buscarTodosProdutos(limit, offset) {
   const [rows] = await db.execute(
     `SELECT 
-       d.id AS id_doacao,
        p.id AS id_produto,
-       p.nome_produto,
+       p.nomeProduto,
        p.tipo,
        p.perecivel,
-       d.quantidade,
-       c.localizacao
-     FROM doacoes d
-     JOIN produtos p ON d.produto_id = p.id
-     JOIN centro_distribuicao c ON d.centro_id = c.id
+       e.quantidade,
+       c.nome AS nome_centro
+     FROM estoque e
+     JOIN produtos p ON e.produto_id = p.id
+     JOIN centro_distribuicao c ON e.centro_id = c.id
      LIMIT ? OFFSET ?`,
     [Number(limit), Number(offset)]
   );

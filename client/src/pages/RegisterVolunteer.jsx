@@ -5,6 +5,7 @@ import { apiService } from '../services/apiService'; // Ajuste o caminho se nece
 const initialState = {
   nome: '',
   cpf: '',
+  atuacao: '',
   telefone: '',
   municipioOrigem: '',
   senha: '',
@@ -47,9 +48,10 @@ export default function RegisterVolunteer() {
       <h2 className="text-2xl font-semibold mb-4">Cadastrar Voluntário</h2>
       <form onSubmit={submit} className="bg-white p-6 rounded shadow space-y-3">
         <input required name="nome" placeholder="Nome" value={form.nome} onChange={handleChange} className="w-full p-2 border rounded" />
-        <input required name="cpf" placeholder="CPF" value={form.cpf} onChange={handleChange} className="w-full p-2 border rounded" />
         <input name="telefone" placeholder="Telefone" value={form.telefone} onChange={handleChange} className="w-full p-2 border rounded" />
+        <input name="atuacao" placeholder="Atuacao" value={form.atuacao} onChange={handleChange} className="w-full p-2 border rounded" />
         <input name="municipioOrigem" placeholder="Município de Origem" value={form.municipioOrigem} onChange={handleChange} className="w-full p-2 border rounded" />
+        <input required name="cpf" placeholder="CPF" value={form.cpf} onChange={handleChange} className="w-full p-2 border rounded" />
         <input required name="senha" type="password" placeholder="Senha" value={form.senha} onChange={handleChange} className="w-full p-2 border rounded" />
         <input required name="confirmarSenha" type="password" placeholder="Confirmar Senha" value={form.confirmarSenha} onChange={handleChange} className="w-full p-2 border rounded" />
 

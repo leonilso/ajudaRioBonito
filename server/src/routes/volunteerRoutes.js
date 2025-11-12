@@ -7,6 +7,6 @@ const upload = multer();
 
 router.post("/cadastro", upload.none(), registerVolunteer);
 router.post("/login", upload.none(), loginVolunteer);
-router.get("/voluntarios", consultarVoluntarios);
+router.get("/", consultarVoluntarios);
 
 export default router;

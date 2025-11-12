@@ -8,14 +8,8 @@ export default function Inicio() {
     async function loadStats() {
       try {
         // Usa o serviço de API centralizado
-        const { prodRes, pessoasRes, centrosRes } = await apiService.getStats();
-
-        // A lógica de contagem permanece a mesma
-        const produtosCount = prodRes.total ?? (Array.isArray(prodRes) ? prodRes.length : (prodRes.resultados?.length || 0));
-        const pessoasCount = Array.isArray(pessoasRes) ? pessoasRes.length : (pessoasRes.length || 0);
-        const centrosCount = Array.isArray(centrosRes) ? centrosRes.length : (centrosRes.length || 0);
-
-        setStats({ produtos: produtosCount, pessoas: pessoasCount, centros: centrosCount });
+        const infos = await apiService.getStats()
+        setStats({ produtos: infos.total_estoque, pessoas: infos.total_pessoas, centros: infos.total_centros });
       } catch (err) {
         console.error("Erro ao carregar estatísticas:", err);
         // Opcional: mostrar um estado de erro para o usuário

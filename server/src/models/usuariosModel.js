@@ -29,6 +29,6 @@ export const listarUsuarios = async () => {
     FROM usuarios
     ORDER BY nome ASC
   `;
-  const [rows] = await db.promise().query(query);
+  const [rows] = await db.query(query);
   return rows;
 };

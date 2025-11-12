@@ -1,4 +1,5 @@
 import { inserirUsuario, listarUsuarios  } from "../models/usuariosModel.js";
+import { aBoolean } from "../utils/funcoesUteis.js";
 
 export const cadastrarUsuario = async (req, res) => {
   try {
@@ -15,13 +16,14 @@ export const cadastrarUsuario = async (req, res) => {
     } = req.body;
 
     const localizacao = {lat: lat, lng: lng}
+    const deabigradoBoll = aBoolean(desabrigado)
 
     await inserirUsuario({
       nome,
       dataNascimento,
       cpf,
       telefone,
-      desabrigado,
+      deabigradoBoll,
       problemaSaude,
       detalhamentoSaude,
       localizacao,

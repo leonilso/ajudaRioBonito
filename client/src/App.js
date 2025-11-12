@@ -13,6 +13,7 @@ import Inicio from "./pages/dashboard/Inicio";
 import Mapa from "./pages/dashboard/Mapa";
 import Produtos from "./pages/dashboard/Produtos";
 import Pessoas from "./pages/dashboard/Pessoas";
+import CentrosDistribuicao from "./pages/dashboard/CentrosDistribuicao";
 
 // Componente para proteger rotas
 function ProtectedRoute({ children }) {
@@ -49,6 +50,7 @@ function AppRoutes() {
           <Route path="mapa" element={<Mapa />} />
           <Route path="produtos" element={<Produtos />} />
           <Route path="pessoas" element={<Pessoas />} />
+          <Route path="centros" element={<CentrosDistribuicao />} />
         </Route>
 
         {/* Rota para qualquer outra coisa */}

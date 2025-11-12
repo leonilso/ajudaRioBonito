@@ -10,6 +10,7 @@ import volunteerRoutes from "./routes/volunteerRoutes.js";
 import donationRoutes from "./routes/donationRoutes.js";
 import centrosRoutes from "./routes/centrosRoutes.js";
 import necessidadesRoutes from "./routes/necessidadesRoutes.js";
+import infosRoutes from "./routes/infosRoutes.js"
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -28,6 +29,7 @@ app.use("/api/voluntarios", volunteerRoutes);
 app.use("/api/doacoes", donationRoutes);
 app.use("/api/centros", centrosRoutes);
 app.use("/api/necessidades", necessidadesRoutes);
+app.use("/api/infos", infosRoutes);
 
 // Rota "Catch-all" (Agora deve funcionar)
 app.use((req, res, next) => {

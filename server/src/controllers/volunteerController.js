@@ -27,7 +27,6 @@ export async function loginVolunteer(req, res) {
     if (!volunteer) {
       return res.status(404).json({ error: "Voluntário não encontrado" });
     }
-    console.log(volunteer.senha, senha)
     if (volunteer.senha !== senha) {
       return res.status(401).json({ error: "Senha incorreta" });
     }

@@ -40,7 +40,7 @@ export const apiService = {
      const body = {
         cpf: formData.cpf,
         itens: formData.itens.map(it => ({ 
-            produto_id: Number(it.produto_id), 
+            produto_id: it.produto_id, 
             quantidade: Number(it.quantidade) 
         }))
      };
@@ -63,28 +63,50 @@ export const apiService = {
       body: JSON.stringify(credentials),
     });
   },
+
+  createCentroDistribuicao: (novoCentro) => {
+    return apiFetch("centros/cadastrarCentro", {
+      method: "POST",
+      body: JSON.stringify(novoCentro),
+    });
+  },
+
+  createProduct: (novoProduto) =>{
+    return apiFetch("doacoes/cadastro", {
+      method: "POST",
+      body: JSON.stringify(novoProduto),
+    });
+  },
   
   // Funções do Dashboard
-  getStats: async () => {
-      const [prodRes, pessoasRes, centrosRes] = await Promise.all([
-          apiFetch('doacoes/produtos').catch(()=>({resultados:[] })),
-          apiFetch('usuarios/usuarios').catch(()=>([])),
-          apiFetch('centros/centros').catch(()=>([])),
-      ]);
-      return { prodRes, pessoasRes, centrosRes };
+  // getStats: async () => {
+  //     const [infos, pessoasRes, centrosRes] = await Promise.all([
+  //         apiFetch('doacoes/produtos').catch(()=>({resultados:[] })),
+  //         apiFetch('usuarios/usuarios').catch(()=>([])),
+  //         apiFetch('centros/centros').catch(()=>([])),
+  //     ]);
+  //     return { prodRes, pessoasRes, centrosRes };
+  // },
+
+  getStats: () => {
+    return apiFetch('infos/');
   },
   getMapData: async () => {
-      const [centros, usuarios, voluntarios] = await Promise.all([
-          apiFetch('centros/centros').catch(()=>[]),
-          apiFetch('usuarios/usuarios').catch(()=>[]),
-          apiFetch('/voluntarios/all').catch(()=>[]),
+      const [centros, usuarios] = await Promise.all([
+          apiFetch('centros').catch(()=>[]),
+          apiFetch('usuarios').catch(()=>[])
       ]);
-      return { centros, usuarios, voluntarios };
+      console.log(centros);
+      console.log(usuarios);
+      return { centros, usuarios };
   },
   getProducts: (params) => {
       return apiFetch(`doacoes/produtos?${params.toString()}`);
   },
   getPessoas: () => {
-      return apiFetch('usuarios/usuarios');
+      return apiFetch('usuarios/');
+  },
+  getCentrosDistribuicao: ()=>{
+    return apiFetch('centros/');
   }
 };

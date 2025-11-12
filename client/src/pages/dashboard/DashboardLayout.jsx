@@ -16,12 +16,13 @@ export default function DashboardLayout() {
           <h3 className="font-bold">Painel do Voluntário</h3>
           <p className="text-sm text-gray-600">{volunteer?.nome || volunteer?.cpf || 'Voluntário'}</p>
         </div>
-        <nav className="space-y-2">
+        <nav className="flex flex-col gap-2">
           {/* NavLink sabe qual rota está ativa e aplica a classe */}
           <NavLink to="/dashboard" end className={({isActive}) => `${linkClasses} ${isActive ? activeClassName : ''}`}>Início</NavLink>
           <NavLink to="/dashboard/mapa" className={({isActive}) => `${linkClasses} ${isActive ? activeClassName : ''}`}>Mapa</NavLink>
           <NavLink to="/dashboard/produtos" className={({isActive}) => `${linkClasses} ${isActive ? activeClassName : ''}`}>Produtos</NavLink>
           <NavLink to="/dashboard/pessoas" className={({isActive}) => `${linkClasses} ${isActive ? activeClassName : ''}`}>Pessoas</NavLink>
+          <NavLink to="/dashboard/centros" className={({isActive}) => `${linkClasses} ${isActive ? activeClassName : ''}`}>Centros</NavLink>
         </nav>
 
         <div className="mt-6">

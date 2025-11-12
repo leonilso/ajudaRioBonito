@@ -4,9 +4,10 @@ import { inserirNecessidades, listarNecessidadesPorUsuario, atualizarNecessidade
 export const cadastrarNecessidades = async (req, res) => {
   try {
     const { cpf, itens } = req.body;
+    console.log(itens)
 
     // Busca o ID do usuário pelo CPF
-    const [usuario] = await db.promise().query("SELECT id FROM usuarios WHERE cpf = ?", [cpf]);
+    const [usuario] = await db.query("SELECT id FROM usuarios WHERE cpf = ?", [cpf]);
     if (usuario.length === 0) {
       return res.status(404).json({ error: "Usuário não encontrado" });
     }

@@ -2,22 +2,28 @@ import { createDonation, baixaDoacao, buscarProdutos, buscarTodosProdutos, conta
 
 export async function registerDonation(req, res) {
   try {
-    const { localizacao, nomeProduto, descricao, tipo, quantidade, perecivel } = req.body;
+    const { centroId, nomeProduto, descricao, tipo, quantidade, perecivel } = req.body;
 
-    if (!localizacao || !nomeProduto || !tipo || !quantidade) {
+    if (!centroId || !nomeProduto || !tipo || !quantidade) {
       return res.status(400).json({ error: "Campos obrigatórios ausentes" });
     }
 
-    const id = await createDonation({
-      localizacao,
+    const safeDescricao = descricao ?? null;
+    const safeTipo = tipo ?? null;
+    const safePerecivel = perecivel ?? false;
+
+    await createDonation({
+      centroId: parseInt(centroId),
       nomeProduto,
-      descricao,
-      tipo,
+      descricao: safeDescricao,
+      tipo: safeTipo,
       quantidade,
-      perecivel,
+      perecivel: safePerecivel
     });
 
-    res.status(201).json({ message: "Doação cadastrada com sucesso", id });
+
+
+    res.status(201).json({ message: "Doação cadastrada com sucesso" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Erro ao cadastrar doação" });

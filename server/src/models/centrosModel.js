@@ -5,8 +5,8 @@ export const inserirCentro = async (dados) => {
     INSERT INTO centro_distribuicao (nome, latitude, longitude)
     VALUES (?, ?, ?)
   `;
-  const values = [dados.nome, dados.localizacao.lat, dados.localizacao.lng];
-  await db.promise().query(query, values);
+  const values = [dados.nome, dados.lat, dados.lng];
+  await db.query(query, values);
 };
 
 export const listarCentros = async () => {
@@ -15,6 +15,6 @@ export const listarCentros = async () => {
     FROM centro_distribuicao
     ORDER BY nome ASC
   `;
-  const [rows] = await db.promise().query(query);
+  const [rows] = await db.query(query);
   return rows;
 };
